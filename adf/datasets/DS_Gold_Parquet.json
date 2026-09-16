@@ -1,0 +1,26 @@
+{
+  "name": "DS_Gold_Parquet",
+  "properties": {
+    "linkedServiceName": {
+      "referenceName": "LS_ADLS_Gen2",
+      "type": "LinkedServiceReference"
+    },
+    "parameters": {
+      "Entity": {
+        "type": "String"
+      }
+    },
+    "type": "Parquet",
+    "typeProperties": {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "folderPath": {
+          "value": "@dataset().Entity",
+          "type": "Expression"
+        },
+        "fileSystem": "gold"
+      }
+    },
+    "schema": []
+  }
+}

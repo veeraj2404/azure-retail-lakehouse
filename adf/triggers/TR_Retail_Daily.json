@@ -1,0 +1,23 @@
+{
+  "name": "TR_Retail_Daily",
+  "properties": {
+    "type": "ScheduleTrigger",
+    "typeProperties": {
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "startTime": "<configure-in-target-factory>",
+        "timeZone": "India Standard Time"
+      }
+    },
+    "pipelines": [
+      {
+        "pipelineReference": {
+          "referenceName": "PL_Retail_Lakehouse_Orchestration",
+          "type": "PipelineReference"
+        },
+        "parameters": {}
+      }
+    ]
+  }
+}

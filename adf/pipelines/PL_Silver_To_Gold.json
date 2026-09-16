@@ -1,0 +1,38 @@
+{
+  "name": "PL_Silver_To_Gold",
+  "properties": {
+    "activities": [
+      {
+        "name": "NB_Silver_To_Gold",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/06_Silver_To_Gold"
+        }
+      },
+      {
+        "name": "NB_Gold_Validation",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "NB_Silver_To_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/07_Gold_Validation"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "LS_Azure_Databricks",
+  "properties": {
+    "type": "AzureDatabricks",
+    "typeProperties": {
+      "domain": "https://<databricks-workspace-host>",
+      "authentication": "MSI",
+      "workspaceResourceId": "<workspace-resource-id>",
+      "existingClusterId": "<cluster-id>"
+    }
+  }
+}

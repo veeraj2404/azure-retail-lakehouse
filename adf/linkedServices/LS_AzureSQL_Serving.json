@@ -1,0 +1,9 @@
+{
+  "name": "LS_AzureSQL_Serving",
+  "properties": {
+    "type": "AzureSqlDatabase",
+    "typeProperties": {
+      "connectionString": "Server=tcp:<server>.database.windows.net,1433;Initial Catalog=<database>;Encrypt=True;TrustServerCertificate=False;"
+    }
+  }
+}

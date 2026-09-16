@@ -1,0 +1,40 @@
+{
+  "project_name": "azure-retail-lakehouse",
+  "environment": "dev",
+  "storage_account": "<storage-account-name>",
+  "containers": {
+    "bronze": "bronze",
+    "silver": "silver",
+    "gold": "gold",
+    "quarantine": "quarantine"
+  },
+  "bronze": {
+    "orders": "orders/",
+    "customers": "customers/customers.csv",
+    "products": "products/products.csv",
+    "stores": "stores/stores.csv"
+  },
+  "silver": {
+    "orders": "orders/",
+    "customers": "customers/",
+    "products": "products/",
+    "stores": "stores/"
+  },
+  "gold": {
+    "fact_sales": "fact_sales/",
+    "dim_customer": "dim_customer/",
+    "dim_product": "dim_product/",
+    "dim_store": "dim_store/",
+    "dim_date": "dim_date/"
+  },
+  "azure_sql": {
+    "server": "<server-name>.database.windows.net",
+    "database": "<database-name>",
+    "schema": "dbo",
+    "authentication": "managed-identity-or-service-principal"
+  },
+  "databricks": {
+    "workspace_url": "https://<workspace-host>",
+    "cluster_or_warehouse": "<compute-id>"
+  }
+}

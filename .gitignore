@@ -1,0 +1,16 @@
+.env
+*.env
+config/project_config.json
+secrets/
+*.key
+*.pem
+*.pfx
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+*.pbix
+*.pbit
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

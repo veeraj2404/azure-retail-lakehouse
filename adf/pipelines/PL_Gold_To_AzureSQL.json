@@ -1,0 +1,57 @@
+{
+  "name": "PL_Gold_To_AzureSQL",
+  "properties": {
+    "parameters": {
+      "Entity": {
+        "type": "String"
+      },
+      "TableName": {
+        "type": "String"
+      }
+    },
+    "activities": [
+      {
+        "name": "CP_Gold_To_SQL",
+        "type": "Copy",
+        "dependsOn": [],
+        "typeProperties": {
+          "source": {
+            "type": "ParquetSource"
+          },
+          "sink": {
+            "type": "AzureSqlSink",
+            "writeBehavior": "insert",
+            "preCopyScript": {
+              "value": "@concat('TRUNCATE TABLE dbo.', pipeline().parameters.TableName)",
+              "type": "Expression"
+            }
+          }
+        },
+        "inputs": [
+          {
+            "referenceName": "DS_Gold_Parquet",
+            "type": "DatasetReference",
+            "parameters": {
+              "Entity": {
+                "value": "@pipeline().parameters.Entity",
+                "type": "Expression"
+              }
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "referenceName": "DS_AzureSQL_Serving",
+            "type": "DatasetReference",
+            "parameters": {
+              "TableName": {
+                "value": "@pipeline().parameters.TableName",
+                "type": "Expression"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

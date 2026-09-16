@@ -1,0 +1,92 @@
+{
+  "name": "PL_Bronze_To_Silver",
+  "properties": {
+    "activities": [
+      {
+        "name": "NB_Orders",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/01_Bronze_To_Silver_Orders"
+        }
+      },
+      {
+        "name": "NB_Customers",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/02_Bronze_To_Silver_Customers"
+        }
+      },
+      {
+        "name": "NB_Products",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/03_Bronze_To_Silver_Products"
+        }
+      },
+      {
+        "name": "NB_Stores",
+        "type": "DatabricksNotebook",
+        "dependsOn": [],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/04_Bronze_To_Silver_Stores"
+        }
+      },
+      {
+        "name": "NB_Silver_Validation",
+        "type": "DatabricksNotebook",
+        "dependsOn": [
+          {
+            "activity": "NB_Orders",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "NB_Customers",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "NB_Products",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "NB_Stores",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "linkedServiceName": {
+          "referenceName": "LS_Azure_Databricks",
+          "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+          "notebookPath": "/Repos/azure-retail-lakehouse/databricks/05_Silver_Validation"
+        }
+      }
+    ]
+  }
+}

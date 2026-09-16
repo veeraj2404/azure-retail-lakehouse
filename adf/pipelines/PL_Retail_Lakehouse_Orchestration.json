@@ -1,0 +1,170 @@
+{
+  "name": "PL_Retail_Lakehouse_Orchestration",
+  "properties": {
+    "activities": [
+      {
+        "name": "Run_Bronze_To_Silver",
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Bronze_To_Silver",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "Run_Silver_To_Gold",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Bronze_To_Silver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Silver_To_Gold",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true
+        }
+      },
+      {
+        "name": "Load_dim_customer",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Silver_To_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Gold_To_AzureSQL",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true,
+          "parameters": {
+            "Entity": "dim_customer",
+            "TableName": "dim_customer"
+          }
+        }
+      },
+      {
+        "name": "Load_dim_product",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Silver_To_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Gold_To_AzureSQL",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true,
+          "parameters": {
+            "Entity": "dim_product",
+            "TableName": "dim_product"
+          }
+        }
+      },
+      {
+        "name": "Load_dim_store",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Silver_To_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Gold_To_AzureSQL",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true,
+          "parameters": {
+            "Entity": "dim_store",
+            "TableName": "dim_store"
+          }
+        }
+      },
+      {
+        "name": "Load_dim_date",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Run_Silver_To_Gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Gold_To_AzureSQL",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true,
+          "parameters": {
+            "Entity": "dim_date",
+            "TableName": "dim_date"
+          }
+        }
+      },
+      {
+        "name": "Load_fact_sales",
+        "type": "ExecutePipeline",
+        "dependsOn": [
+          {
+            "activity": "Load_dim_customer",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Load_dim_product",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Load_dim_store",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Load_dim_date",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "pipeline": {
+            "referenceName": "PL_Gold_To_AzureSQL",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true,
+          "parameters": {
+            "Entity": "fact_sales",
+            "TableName": "fact_sales"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,3 @@
+order_id,order_date,customer_id,product_id,store_id,quantity,unit_price,discount_pct,last_modified_ts
+O000001,2026-03-22,C00135,P0031,S005,3,201.07,0.0500,2026-03-22T15:20:00
+O_TEST_BAD_001,2026-09-15,,P0001,S001,-5,100.00,0.1000,2026-09-15T16:50:56

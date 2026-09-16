@@ -1,0 +1,13 @@
+Total Sales = SUM ( fact_sales[net_amount] )
+
+Gross Sales = SUM ( fact_sales[gross_amount] )
+
+Total Orders = DISTINCTCOUNT ( fact_sales[order_id] )
+
+Total Quantity = SUM ( fact_sales[quantity] )
+
+Average Order Value = DIVIDE ( [Total Sales], [Total Orders] )
+
+Discount Amount = [Gross Sales] - [Total Sales]
+
+Discount % = DIVIDE ( [Discount Amount], [Gross Sales] )

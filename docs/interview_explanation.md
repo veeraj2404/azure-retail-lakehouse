@@ -1,0 +1,3 @@
+# Interview Explanation
+
+The client directly deposits raw retail files into ADLS Bronze. Databricks/PySpark standardizes and validates the data. Invalid records are routed to a Delta-based Quarantine area with rejection reasons, while valid records are stored in Silver Delta. Orders use Delta MERGE to handle new and updated transactions using `order_id` and `last_modified_ts`. Silver datasets are transformed into a Gold star schema. ADF orchestrates the processing and loads Gold dimensions and fact data into Azure SQL. Power BI connects to the Azure SQL serving layer for semantic modeling, DAX and reporting.
